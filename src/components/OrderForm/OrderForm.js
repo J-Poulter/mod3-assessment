@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { addOrder } from '../../apiCalls';
+import { connect } from 'react-redux';
+import { updateOrders } from '../../actions';
 
 class OrderForm extends Component {
   constructor(props) {
@@ -21,7 +24,15 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.clearInputs();
+    if (this.state.ingredients.length) {
+      const order = {
+        name: this.state.name,
+        ingredients: this.state.ingredients
+      }
+      addOrder(order)
+        .then(newOrder => this.props.updateOrders(newOrder))
+      this.clearInputs();
+    }
   }
 
   clearInputs = () => {
@@ -60,4 +71,8 @@ class OrderForm extends Component {
   }
 }
 
-export default OrderForm;
+const mapDispatchToProps = (dispatch) => ({
+  updateOrders: (order) => dispatch(updateOrders(order))
+})
+
+export default connect(null, mapDispatchToProps)(OrderForm);
