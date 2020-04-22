@@ -7,3 +7,4 @@ export const updateOrders = newOrder => ({
   type: 'ADD_ORDER',
   newOrder
 })
+
