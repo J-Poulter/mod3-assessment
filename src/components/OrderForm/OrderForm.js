@@ -24,7 +24,7 @@ class OrderForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.ingredients.length) {
+    if (this.state.ingredients.length && this.state.name) {
       const order = {
         name: this.state.name,
         ingredients: this.state.ingredients
