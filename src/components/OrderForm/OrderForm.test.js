@@ -18,8 +18,7 @@ const renderTestWrapper = () => {
 
 describe('OrderForm', () => {
   it('should render the correct starting content', () => {
-  const { getByText, debug, getAllByRole } = renderTestWrapper()
-  debug()
+    const { getByText, debug, getAllByRole } = renderTestWrapper()
     const ingredientsButtons = getAllByRole('button');
     const submitButton = getByText('Submit Order');
     const sofritasButton = getByText('sofritas');
@@ -33,5 +32,34 @@ describe('OrderForm', () => {
     expect(guacamoleButton).toBeInTheDocument();
     expect(steakButton).toBeInTheDocument();
     expect(noIngredientsNotice).toBeInTheDocument();
+  })
+
+  it('should update state as ingredients are added and names are entered', () => {
+    const { getByText, debug, getByPlaceholderText } = renderTestWrapper()
+
+    const nameInput = getByPlaceholderText('Name');
+
+    expect(nameInput.value).toBe('')
+    fireEvent.change(nameInput, {target: {value: 'mockName'}})
+
+    expect(nameInput.value).toBe('mockName')
+
+    const steakButton = getByText('steak');
+    const guacamoleButton = getByText('guacamole');
+    const sofritasButton = getByText('sofritas');
+    fireEvent.click(steakButton)
+    fireEvent.click(guacamoleButton)
+    fireEvent.click(sofritasButton)
+    
+    const pendingOrder = getByText('Order: steak, guacamole, sofritas')
+    expect(pendingOrder).toBeInTheDocument()
+  })
+
+  it('should be able to submit an order only when input is entered for name and ingredients are clicked', () => {
+    const { getByText, debug, getByPlaceholderText } = renderTestWrapper()
+
+    const submitButton = getByText('Submit Order');
+    fireEvent.click(submitButton)
+    expect
   })
 })

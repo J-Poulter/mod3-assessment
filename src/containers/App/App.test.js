@@ -5,6 +5,10 @@ import '@testing-library/jest-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from '../../reducers';
+import { getOrders } from '../../apiCalls';
+
+jest.mock('../../apiCalls.js');
+
 
 const testStore = createStore(rootReducer)
 
@@ -27,7 +31,7 @@ const renderTestWrapper = () => {
 describe('App', () => {
   it('should render the correct content', () => {
     const { getByText, getAllByRole } = renderTestWrapper();
-    
+
     const ingredientsButtons = getAllByRole('button');
     const appTitle = getByText('Burrito Builder');
     const noOrdersNotice = getByText('No orders yet!');
@@ -45,5 +49,11 @@ describe('App', () => {
     expect(guacamoleButton).toBeInTheDocument();
     expect(steakButton).toBeInTheDocument();
     expect(noIngredientsNotice).toBeInTheDocument();
+  })
+
+  it('should render different content when there are orders in the store', () => {
+    getOrders.mockResolvedValue(mockOrders)
+    const { getByText, getAllByRole } = renderTestWrapper();
+
   })
 })
