@@ -15,11 +15,11 @@ class Orders extends Component {
   orderEls = () => { 
     return this.props.orders.map(order => {
       return (
-        <div className="order">
+        <div className="order" key={order.id}>
           <h3>{order.name}</h3>
           <ul className="ingredient-list">
             {order.ingredients.map(ingredient => {
-              return <li>{ingredient}</li>
+              return <li key={order.ingredients.indexOf(ingredient)}>{ingredient}</li>
             })}
           </ul>
         </div>
@@ -28,11 +28,11 @@ class Orders extends Component {
 }
 
     render() {
-    return (
-      <section>
-        { this.orderEls().length ? this.orderEls() : <p>No orders yet!</p> }
-      </section>
-    )
+      return (
+        <section>
+          { this.orderEls().length ? this.orderEls() : <p>No orders yet!</p> }
+        </section>
+      )
     }
 }
 
