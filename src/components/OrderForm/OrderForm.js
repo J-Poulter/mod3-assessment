@@ -30,6 +30,7 @@ class OrderForm extends Component {
         ingredients: this.state.ingredients
       }
       addOrder(order)
+      .catch(err => console.error(err))
         .then(newOrder => this.props.updateOrders(newOrder))
       this.clearInputs();
     }
