@@ -72,7 +72,7 @@ class OrderForm extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  updateOrders: (order) => dispatch(updateOrders(order))
+  updateOrders: (newOrder) => dispatch(updateOrders(newOrder))
 })
 
 export default connect(null, mapDispatchToProps)(OrderForm);

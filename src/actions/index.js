@@ -3,7 +3,7 @@ export const setOrders = orders => ({
   orders
 });
 
-export const updateOrders = order => ({
+export const updateOrders = newOrder => ({
   type: 'ADD_ORDER',
-  order
+  newOrder
 })
